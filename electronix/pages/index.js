@@ -8,6 +8,7 @@ import {
   HeroBanner,
   Cart,
 } from "../components";
+import { client } from "../lib/client";
 
 const Home = () => {
   return (
@@ -23,6 +24,11 @@ const Home = () => {
       <FooterBanner />
     </>
   );
+};
+
+//fetching data from Sanity
+export const getServerSideProps = async () => {
+  const query = `*[_type == "product"]`; // return all products from our sanity dashboard
 };
 
 export default Home;

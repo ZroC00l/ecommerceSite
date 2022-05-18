@@ -1,5 +1,11 @@
 import React from "react";
 import { urlFor, client } from "../../lib/client";
+import {
+  AiOutlineMinus,
+  AiOutlinePlus,
+  AiFillStar,
+  AiOutlineStar,
+} from "react-icons/ai";
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
@@ -10,6 +16,26 @@ const ProductDetails = ({ product, products }) => {
           <div className="image-container">
             <img src={urlFor(image && image[0])} />
           </div>
+          {/* <div className="small-images-container">
+            {image?.map((item, index) => (
+              <img src={urlFor(item)} className="" onMouseEnter="" />
+            ))}
+          </div> */}
+        </div>
+        <div className="product-details-desc">
+          <h1 className="">{name}</h1>
+          <div className="reviews">
+            <div>
+              <AiFillStar />
+              <AiFillStar />
+              <AiFillStar />
+              <AiFillStar />
+              <AiOutlineStar />
+            </div>
+            <p>(16)</p>
+          </div>
+          <h4>Details</h4>
+          <p>{details}</p>
         </div>
       </div>
     </div>
@@ -25,6 +51,16 @@ export const getStaticPaths = async () => {
             current
         }
     }`;
+  const products = await client.fetch(query);
+  const paths = products.map((product) => ({
+    params: {
+      slug: product.slug.current,
+    },
+  }));
+  return {
+    paths,
+    fallback: "blocking",
+  };
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {

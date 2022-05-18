@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { urlFor, client } from "../../lib/client";
 import {
   AiOutlineMinus,
@@ -10,18 +10,33 @@ import { Product } from "../../components";
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
+
+  //state for selected image on product carousel
+  const [indexSelected, setIndexSelected] = useState(0);
+
   return (
     <div>
       <div className="product-detail-container">
         <div>
           <div className="image-container">
-            <img src={urlFor(image && image[0])} />
+            <img
+              src={urlFor(image && image[indexSelected])}
+              className="product-detail-image"
+            />
           </div>
-          {/* <div className="small-images-container">
+          <div className="small-images-container">
             {image?.map((item, index) => (
-              <img src={urlFor(item)} className="" onMouseEnter="" />
+              <img
+                src={urlFor(item)}
+                className={
+                  index === indexSelected
+                    ? "small-image selected-image"
+                    : "small-image"
+                }
+                onMouseEnter={() => setIndexSelected(index)}
+              />
             ))}
-          </div> */}
+          </div>
         </div>
         <div className="product-detail-desc">
           <h1 className="">{name}</h1>

@@ -6,7 +6,7 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
   //cart state
   const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState();
+  const [cartItems, setCartItems] = useState([]);
 
   const [totalPrice, SetTotalPrice] = useState();
   const [totalQuantities, setTotalQuantities] = useState();
@@ -45,7 +45,6 @@ export const StateContext = ({ children }) => {
         }
       });
       setCartItems(updatedCartItems);
-      toast.success(`${qty} ${product.name} added to cart.`);
     } else {
       /*The product does not exist in the cart thus we have to add a new product to the cart, 
      a different one from the one thats already in the cart
@@ -53,6 +52,7 @@ export const StateContext = ({ children }) => {
       product.quantity = quantity;
       setCartItems([...cartItems, { ...product }]);
     }
+    toast.success(`${qty} ${product.name} added to cart.`); //print messenge to the user on successful add to cart
   };
 
   return (
@@ -65,6 +65,7 @@ export const StateContext = ({ children }) => {
         qty,
         increaseQty,
         decreaseQty,
+        onAddToCart,
       }}
     >
       {children}

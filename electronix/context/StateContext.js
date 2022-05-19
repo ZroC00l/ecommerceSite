@@ -12,16 +12,33 @@ export const StateContext = ({ children }) => {
   const [totalQuantities, setTotalQuantities] = useState();
   const [qty, setQty] = useState(1);
 
-  return;
-  <Context.Provider
-    value={{
-      showCart,
-      cartItems,
-      totalPrice,
-      totalQuantities,
-      qty,
-    }}
-  >
-    {children}
-  </Context.Provider>;
+  const increaseQty = () => {
+    setQty((previousQty) => previousQty + 1);
+  };
+
+  const decreaseQty = () => {
+    setQty((previousQty) => {
+      if (previousQty === 1) return 1; //if qty is LESS THAN 1, do nothing
+      return previousQty - 1;
+    });
+  };
+
+  return (
+    <Context.Provider
+      value={{
+        showCart,
+        cartItems,
+        totalPrice,
+        totalQuantities,
+        qty,
+        increaseQty,
+        decreaseQty,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 };
+
+//this function allows us to easily grab the states in other components
+export const useStateContext = () => useContext(Context);

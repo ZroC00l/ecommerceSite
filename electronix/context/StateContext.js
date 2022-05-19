@@ -9,7 +9,7 @@ export const StateContext = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const [totalPrice, SetTotalPrice] = useState();
-  const [totalQuantities, setTotalQuantities] = useState();
+  const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
 
   //Quantity Increase and Decrease methods
@@ -66,6 +66,7 @@ export const StateContext = ({ children }) => {
         increaseQty,
         decreaseQty,
         onAddToCart,
+        setShowCart,
       }}
     >
       {children}

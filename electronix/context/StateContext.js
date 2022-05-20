@@ -59,6 +59,24 @@ export const StateContext = ({ children }) => {
     toast.success(`${qty} ${product.name} added to cart.`); //print messenge to the user on successful add to cart
   };
 
+  //Method to remove item from cart
+  const removeItemFromCart = (product) => {
+    const newCartItems = cartItems.filter((item) => item._id !== product._id);
+    setCartItems(newCartItems);
+    SetTotalPrice(
+      (prevTotalPrice) => prevTotalPrice - product.price * product.quantity
+    );
+    setTotalQuantities(
+      (prevTotalQuantities) => prevTotalQuantities - product.quantity
+    );
+    toast.success(`${product.name} - removed from cart.`, {
+      position: "top-right",
+      style: {
+        background: "#FFCCBC",
+      },
+    });
+  };
+
   //Method to increase the quantity of a product in the cart
   const toggleShoppingCartItemQuantity = (product, value) => {
     if (value === "decrease") {
@@ -97,6 +115,7 @@ export const StateContext = ({ children }) => {
         onAddToCart,
         setShowCart,
         toggleShoppingCartItemQuantity,
+        removeItemFromCart,
       }}
     >
       {children}

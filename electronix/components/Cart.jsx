@@ -20,6 +20,7 @@ const Cart = () => {
     cartItems,
     setShowCart,
     toggleShoppingCartItemQuantity,
+    removeItemFromCart,
   } = useStateContext();
   return (
     <div className="cart-wrapper" ref={cartRef}>
@@ -88,7 +89,15 @@ const Cart = () => {
                         </span>
                       </p>
                     </div>
-                    <button type="button" className="remove-item" onClick="">
+                    {/* Removing item from the shopping cart  */}
+                    <button
+                      type="button"
+                      className="remove-item"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeItemFromCart(item);
+                      }}
+                    >
                       <TiDeleteOutline />
                     </button>
                   </div>

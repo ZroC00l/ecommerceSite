@@ -69,18 +69,20 @@ const Cart = () => {
                       <p className="quantity-desc">
                         <span
                           className="minus"
-                          onClick={() =>
-                            toggleShoppingCartItemQuantity(item._id, "decrease")
-                          }
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleShoppingCartItemQuantity(item, "decrease");
+                          }}
                         >
                           <AiOutlineMinus />
                         </span>
-                        <span className="num">{item.quantity}</span>
+                        <span className="num">{item?.quantity}</span>
                         <span
                           className="plus"
-                          onClick={() =>
-                            toggleShoppingCartItemQuantity(item._id, "increase")
-                          }
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleShoppingCartItemQuantity(item, "increase");
+                          }}
                         >
                           <AiOutlinePlus />
                         </span>

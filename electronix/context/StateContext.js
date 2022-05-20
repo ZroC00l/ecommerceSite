@@ -60,41 +60,27 @@ export const StateContext = ({ children }) => {
   };
 
   //Method to increase the quantity of a product in the cart
-  const toggleShoppingCartItemQuantity = (id, value) => {
-    foundProduct = cartItems.find((item) => item._id === id);
-    index = cartItems.findIndex((product) => product._id === id);
-    /*filter the cart items to find the product with the same id as the one we are 
-    trying to increase or decrease*/
-    const newCartItems = cartItems.filter((item) => item._id !== id);
-
-    if (value === "increase") {
-      /* foundProduct.quantity += 1;
-       cartItems[index].quantity += 1; this type of solution to updating a state if frowned
-                                       upon in React as it can lead to erraneous results because we 
-                                       are mutating our code*/
-      setCartItems([
-        ...newCartItems,
-        { ...foundProduct, quantity: foundProduct.quantity + 1 },
-      ]);
-      SetTotalPrice(
-        (previousTotalPrice) => previousTotalPrice + foundProduct.price
-      );
-      setTotalQuantities(
-        (previousTotalQuantities) => previousTotalQuantities + 1
-      );
-    } else if (value === "decrease") {
-      if (foundProduct.quantity > 1) {
-        setCartItems([
-          ...newCartItems,
-          { ...foundProduct, quantity: foundProduct.quantity - 1 },
-        ]);
-        SetTotalPrice(
-          (previousTotalPrice) => previousTotalPrice - foundProduct.price
+  const toggleShoppingCartItemQuantity = (product, value) => {
+    if (value === "decrease") {
+      if (product.quantity > 1) {
+        const updatedProduct = cartItems.map((item) =>
+          item._id === product._id
+            ? { ...product, quantity: product.quantity - 1 }
+            : item
         );
-        setTotalQuantities(
-          (previousTotalQuantities) => previousTotalQuantities - 1
-        );
+        setCartItems(updatedProduct);
+        SetTotalPrice((prevTotalPrice) => prevTotalPrice - product.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
       }
+    } else if (value === "increase") {
+      const updatedProduct = cartItems.map((item) =>
+        item._id === product._id
+          ? { ...product, quantity: product.quantity + 1 }
+          : item
+      );
+      setCartItems(updatedProduct);
+      SetTotalPrice((prevTotalPrice) => prevTotalPrice + product.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
     }
   };
 

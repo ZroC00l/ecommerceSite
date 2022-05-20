@@ -12,6 +12,10 @@ export const StateContext = ({ children }) => {
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
 
+  //shopping cart item special properties to keep state of cart item quantity
+  let foundProduct;
+  let index;
+
   //Quantity Increase and Decrease methods
   const increaseQty = () => {
     setQty((previousQty) => previousQty + 1);
@@ -55,6 +59,42 @@ export const StateContext = ({ children }) => {
     toast.success(`${qty} ${product.name} added to cart.`); //print messenge to the user on successful add to cart
   };
 
+  //Method to increase the quantity of a product in the cart
+  const toggleShoppingCartItemQuantity = (id, value) => {
+    foundProduct = cartItems.find((item) => item._id === id);
+    index = cartItems.findIndex((product) => product._id === id);
+
+    if (value === "increase") {
+      /* foundProduct.quantity += 1;
+       cartItems[index].quantity += 1; this type of solution to updating a state if frowned
+                                       upon in React as it can lead to erraneous results because we 
+                                       are mutating our code*/
+      setCartItems([
+        ...cartItems,
+        { ...foundProduct, quantity: foundProduct.quantity + 1 },
+      ]);
+      SetTotalPrice(
+        (previousTotalPrice) => previousTotalPrice + foundProduct.price
+      );
+      setTotalQuantities(
+        (previousTotalQuantities) => previousTotalQuantities + 1
+      );
+    } else if (value === "decrease") {
+      if (foundProduct.quantity > 1) {
+        setCartItems([
+          ...cartItems,
+          { ...foundProduct, quantity: product.quantity - 1 },
+        ]);
+        SetTotalPrice(
+          (previousTotalPrice) => previousTotalPrice - foundProduct.price
+        );
+        setTotalQuantities(
+          (previousTotalQuantities) => previousTotalQuantities - 1
+        );
+      }
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -67,6 +107,7 @@ export const StateContext = ({ children }) => {
         decreaseQty,
         onAddToCart,
         setShowCart,
+        toggleShoppingCartItemQuantity,
       }}
     >
       {children}

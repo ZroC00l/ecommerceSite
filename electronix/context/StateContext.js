@@ -63,6 +63,7 @@ export const StateContext = ({ children }) => {
   const removeItemFromCart = (product) => {
     const newCartItems = cartItems.filter((item) => item._id !== product._id);
     setCartItems(newCartItems);
+    //console.log(newCartItems + "THESE ARE THE NEW CART ITEMS");
     SetTotalPrice(
       (prevTotalPrice) => prevTotalPrice - product.price * product.quantity
     );

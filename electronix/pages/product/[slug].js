@@ -26,11 +26,13 @@ const ProductDetails = ({ product, products }) => {
             <img
               src={urlFor(image && image[indexSelected])}
               className="product-detail-image"
+              alt={name}
             />
           </div>
           <div className="small-images-container">
             {image?.map((item, index) => (
               <img
+                key={item._id}
                 src={urlFor(item)}
                 className={
                   index === indexSelected
@@ -77,7 +79,7 @@ const ProductDetails = ({ product, products }) => {
             >
               Add to Cart
             </button>
-            <button type="button" className="buy-now" onClick="">
+            <button type="button" className="buy-now">
               Buy now
             </button>
           </div>

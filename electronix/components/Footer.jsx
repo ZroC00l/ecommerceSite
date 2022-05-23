@@ -11,15 +11,11 @@ const Footer = () => {
     <div className="footer-container">
       <p> &copy; 2022 Electronix. All rights reserved</p>
       <p className="icons">
-        <Link href="https://www.instagram.com/">
-          <AiFillInstagram />
-        </Link>
-        <Link href="https://twitter.com/">
-          <AiOutlineTwitter />
-        </Link>
-        <Link href="https://www.facebook.com/">
-          <AiFillFacebook />
-        </Link>
+        <AiFillInstagram />
+
+        <AiOutlineTwitter />
+
+        <AiFillFacebook />
       </p>
     </div>
   );

@@ -11,6 +11,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { toast } from "react-hot-toast";
 import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
+import getStripe from "../lib/getStripe";
 
 const Cart = () => {
   const cartRef = useRef();
@@ -24,7 +25,17 @@ const Cart = () => {
   } = useStateContext();
 
   //Handle Checkout Method
-  const handleCheckout = () => {};
+  const handleCheckout = async () => {
+    //get instance of stripe
+    const stripe = await getStripe();
+
+    //api request to our own nextjs backend
+    const response = await fetch("/api/stripe", {
+      method: "POST",
+      header: { "Content-Type": "application/json" },
+      body: JSON.stringify(cartItems),
+    });
+  };
 
   return (
     <div className="cart-wrapper" ref={cartRef}>

@@ -4,7 +4,14 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
+    //test data output for stripe
+    console.log(req.body.cartItems);
+
+    console.log("******************************");
+
     try {
+      console.log("*******************************");
+      console.log("INSIDE TRY BLOCK");
       const params = {
         submit_type: "pay",
         mode: "payment",

@@ -24,6 +24,7 @@ const ProductDetails = ({ product, products }) => {
         <div>
           <div className="image-container">
             <img
+              key={indexSelected}
               src={urlFor(image && image[indexSelected])}
               className="product-detail-image"
               alt={name}

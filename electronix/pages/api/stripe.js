@@ -1,17 +1,13 @@
 import Stripe from "stripe";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     //test data output for stripe
-    console.log(req.body.cartItems);
-
-    console.log("******************************");
+    window.alert("shit dont work fam");
 
     try {
-      console.log("*******************************");
-      console.log("INSIDE TRY BLOCK");
       const params = {
         submit_type: "pay",
         mode: "payment",
@@ -37,7 +33,7 @@ export default async function handler(req, res) {
 
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);
-      res.redirect(303, session.url);
+      res.redirect(200, session.url);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }

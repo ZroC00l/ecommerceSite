@@ -5,7 +5,8 @@ const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
 export default async function handler(req, res) {
   if (req.method === "POST") {
     //test data output for stripe
-    window.alert("shit dont work fam");
+    console.log(req.body.cartItems);
+    console.log("hello world");
 
     try {
       const params = {

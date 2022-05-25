@@ -5,8 +5,8 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 export default async function handler(req, res) {
   if (req.method === "POST") {
     //test data output for stripe
-    console.log(req.body);
-    console.log("hello world");
+    //console.log(req.body);
+    //console.log("hello world");
 
     try {
       const params = {

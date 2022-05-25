@@ -5,7 +5,7 @@ const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
 export default async function handler(req, res) {
   if (req.method === "POST") {
     //test data output for stripe
-    console.log(req.body.cartItems);
+    console.log(req.body);
     console.log("hello world");
 
     try {
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
             shipping_rate: "shr_1L2bboCKOIVJY3giLi27Kntj",
           },
         ],
-        line_items: req.body.cartItems.map((item) => {
+        line_items: req.body.map((item) => {
           const img = item.image[0].asset._ref;
           const newImage = img
             .replace(

@@ -28,16 +28,27 @@ export default async function handler(req, res) {
               "https://cdn.sanity.io/images/jebapg6o/production/"
             )
             .replace("-webp", ".webp");
-          console.log("IMAGE", newImage);
+          //console.log("IMAGE", newImage);
+          return {
+            price_data: {
+              currency: "zar",
+              product_data: {
+                name: item.name,
+                images: [newImage],
+              },
+              unit_amount: item.price * 100,
+            },
+            adjustable_quantity: { enabled: true, minimum: 1 },
+            quantity: item.quantity,
+          };
         }),
-        mode: "payment",
         success_url: `${req.headers.origin}/?success=true`,
         cancel_url: `${req.headers.origin}/?canceled=true`,
       };
 
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);
-      res.redirect(200, session.url);
+      res.status(200).json(session);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }

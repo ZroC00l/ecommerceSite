@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 
-const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
+const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -20,13 +20,16 @@ export default async function handler(req, res) {
             shipping_rate: "shr_1L2bboCKOIVJY3giLi27Kntj",
           },
         ],
-        line_items: [
-          {
-            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "{{PRICE_ID}}",
-            quantity: 1,
-          },
-        ],
+        line_items: req.body.cartItems.map((item) => {
+          const img = item.image[0].asset._ref;
+          const newImage = img
+            .replace(
+              "image-",
+              "https://cdn.sanity.io/images/jebapg6o/production/"
+            )
+            .replace("-webp", ".webp");
+          console.log("IMAGE", newImage);
+        }),
         mode: "payment",
         success_url: `${req.headers.origin}/?success=true`,
         cancel_url: `${req.headers.origin}/?canceled=true`,

@@ -14,10 +14,57 @@ export default async function handler(req, res) {
         mode: "payment",
         payment_method_types: ["card"],
         billing_address_collection: "auto",
-        shipping_options: [
+        /*shipping_options: [
           {
             shipping_rate: "shr_1L2bboCKOIVJY3giLi27Kntj",
             shipping_rate: "shr_1L3ZErCKOIVJY3gioCxchA2c",
+          },
+        ],*/
+        shipping_address_collection: {
+          allowed_countries: ["US", "CA", "MX", "SA"],
+        },
+        shipping_options: [
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              fixed_amount: {
+                amount: 0,
+                currency: "zar",
+              },
+              display_name: "Free shipping",
+              // Delivers between 5-7 business days
+              delivery_estimate: {
+                minimum: {
+                  unit: "business_day",
+                  value: 5,
+                },
+                maximum: {
+                  unit: "business_day",
+                  value: 7,
+                },
+              },
+            },
+          },
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              fixed_amount: {
+                amount: 1500,
+                currency: "zar",
+              },
+              display_name: "Next day air",
+              // Delivers in exactly 1 business day
+              delivery_estimate: {
+                minimum: {
+                  unit: "business_day",
+                  value: 1,
+                },
+                maximum: {
+                  unit: "business_day",
+                  value: 1,
+                },
+              },
+            },
           },
         ],
         line_items: req.body.map((item) => {

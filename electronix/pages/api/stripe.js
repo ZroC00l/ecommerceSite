@@ -17,6 +17,7 @@ export default async function handler(req, res) {
         shipping_options: [
           {
             shipping_rate: "shr_1L2bboCKOIVJY3giLi27Kntj",
+            shipping_rate: "shr_1L3ZErCKOIVJY3gioCxchA2c",
           },
         ],
         line_items: req.body.map((item) => {

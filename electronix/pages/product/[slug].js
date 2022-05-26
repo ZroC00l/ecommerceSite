@@ -16,7 +16,14 @@ const ProductDetails = ({ product, products }) => {
   const [indexSelected, setIndexSelected] = useState(0);
 
   //destructure our states
-  const { increaseQty, decreaseQty, qty, onAddToCart } = useStateContext();
+  const { increaseQty, decreaseQty, qty, onAddToCart, setShowCart } =
+    useStateContext();
+
+  //buy now button routes the item to cart and adds it to the cart
+  const handleBuyNow = () => {
+    onAddToCart(product, qty);
+    setShowCart(true);
+  };
 
   return (
     <div>
@@ -80,7 +87,7 @@ const ProductDetails = ({ product, products }) => {
             >
               Add to Cart
             </button>
-            <button type="button" className="buy-now">
+            <button type="button" className="buy-now" onClick={handleBuyNow}>
               Buy now
             </button>
           </div>

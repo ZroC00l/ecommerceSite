@@ -49,7 +49,7 @@ export default async function handler(req, res) {
             shipping_rate_data: {
               type: "fixed_amount",
               fixed_amount: {
-                amount: 1500,
+                amount: 150.0,
                 currency: "zar",
               },
               display_name: "Next day air",

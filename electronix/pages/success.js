@@ -4,8 +4,19 @@ import { BsBagCheckFill } from "react-icons/bs";
 
 import { useStateContext } from "../context/StateContext";
 
+import { realisticLook } from "../lib/utils";
+
 const Success = () => {
-  const { setCart, setTotalPrice, setTotalQuantities } = useStateContext();
+  const { setCartItems, SetTotalPrice, setTotalQuantities } = useStateContext();
+
+  //Clear all states after successful purchase and redirect to home page
+  useEffect(() => {
+    localStorage.clear();
+    setCartItems([]);
+    SetTotalPrice(0);
+    setTotalQuantities(0);
+    realisticLook();
+  }, []);
 
   return (
     <div className="success-wrapper">
